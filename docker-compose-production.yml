@@ -1,0 +1,26 @@
+version: '2'
+services:
+  web:
+    image: gcr.io/viglini-1/docker-examples-web:28dc723aaf61e7750352e24217b4bda8d2116440
+    ports:
+      - 80:80
+    depends_on:
+      - php
+  php:
+    image: gcr.io/viglini-1/docker-examples-php:0a1656579be311cd2e1487be8c937a8050c857e8
+    env_file: .env
+    environment:
+      - MYSQL_HOSTMAME=db
+    depends_on:
+      - db
+    ports:
+      - 9000:9000
+  db:
+    image: mysql:latest
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
