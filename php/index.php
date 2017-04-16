@@ -18,8 +18,13 @@ $db->query('
 $db->query('INSERT INTO messages VALUES (NULL, NOW())');
 
 $result = $db
-  ->query('SELECT * FROM messages ORDER BY date DESC LIMIT 5')
+  ->query('SELECT * FROM messages ORDER BY id DESC LIMIT 5')
   ->fetch_all(MYSQLI_ASSOC);
 
+$out = [
+  'version' => 'v1',
+  'result' => $result
+];
+
 header('Content-Type: application/json');
-echo json_encode($result);
+echo json_encode($out);

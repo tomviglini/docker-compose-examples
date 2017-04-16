@@ -13,6 +13,7 @@ services:
     env_file: .env
     environment:
       - MYSQL_HOSTMAME=db
+      - MYSQL_USER=root
     depends_on:
       - db
     ports:
